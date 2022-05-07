@@ -87,3 +87,11 @@ typings/
 
 # Electron-Forge
 out/
+
+venv/ 
+
+__pycache__/
+
+.webpack/
+
+.mypy_cache/

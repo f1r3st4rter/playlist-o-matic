@@ -1,0 +1,9 @@
+- improve add/remove videos from playlist
+- export function
+- load playlist from tube site
+- parse urls from file
+- button to open video in browser 
+- persist playlist
+- stop
+- shuffle
+- 
