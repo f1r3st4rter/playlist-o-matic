@@ -24,10 +24,7 @@ def update(data) -> None:
 
 
 def load_from_qbittorrent():
-    # db = TinyDB('./db.json')
-    # videos = db.table('videos')
-    qbt_client = qbittorrentapi.Client(host='localhost', port=8080)# ,
-#            username='admin', password='B00nd@666')
+    qbt_client = qbittorrentapi.Client(host='localhost', port=8080)
 
 
 
@@ -49,9 +46,6 @@ def load_from_qbittorrent():
             'progress': torrent.progress,
         }
         update(torrent_data)
-        # if not torrent.save_path.startswith('E:\\'):
-        #     # pprint.pprint(torrent.name + ' - ' + str(torrent.progress))
-        #     pprint.pprint(torrent_data)
 
 if __name__ == '__main__':
     load_from_qbittorrent()
