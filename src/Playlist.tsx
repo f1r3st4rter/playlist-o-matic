@@ -28,7 +28,6 @@ export default class Playlist extends React.Component<unknown, PLState> {
 
   play = async () => {
     const playlist = this.state.playlist;
-    console.log('DELETEME: Play button clicked');
     window.api.start_playlist(playlist);
   };
 
@@ -37,6 +36,8 @@ export default class Playlist extends React.Component<unknown, PLState> {
     if (playlist.length < 1) {
       return (
           <div>
+            {/* <iframe width="560" height="315" src="//www.pornhub.com/embed/ph58223746b6564?autoplay=1" frameBorder="0" scrolling="no" allow='autoplay'></iframe> */}
+            {/* <iframe width="560" height="315" src="//en.wikipedia.org" frameBorder="0" scrolling="no" allow='autoplay'></iframe> */}
             <input type="file" onChange={this.loadFile} />
           </div>
       );

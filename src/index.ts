@@ -27,9 +27,30 @@ function transformURL(url: string): string {
       const url_parts = url.split('/');
       return `https://spankbang.com/${url_parts[3]}/embed/`;
     }
-  }
-  return url;
+  } else if (url.includes("xvideos.com")) {
+      const url_parts = url.split('/');
+      return `https://www.xvideos.com/embedframe/${url_parts[3].replace('video', '')}`;
+  } else if (url.includes("pornhub.com")) {
+    return url;
+    const url_parts = url.split('?');
+    const parameters = url_parts[1].split('&')
 
+    for (const p of parameters) {
+        if (p.startsWith('viewkey=')) {
+          return `https://www.pornhub.com/embed/${p.replace('viewkey=', '')}`
+        }
+    }
+    return url;
+  } else if (url.includes("eporner.com")) {
+    const url_parts = url.split('/');
+    return `https://www.eporner.com/embed/${url_parts[3].replace('video-', '')}`;
+  } else if (url.includes("tnaflix.com")) {
+    const url_parts = url.split('/');
+    const tag = url_parts[5].split('?')[0];
+      return `https://player.tnaflix.com/video/${tag.replace('video','')}`;
+  } else {
+    return url;
+  }
 }
 
 const createWindow = (): void => {
@@ -60,9 +81,7 @@ const createWindow = (): void => {
   })
   mainWindow.setBrowserView(view)
   view.setBounds({ x: 0, y: 10, width: 600, height: 400 })
-  // view.setAutoResize({ width: true, height: true, vertical: true, horizontal: true})
-  // view.webContents.loadURL('https://spankbang.com/6h1c5/embed/')
-  // view.webContents.openDevTools()
+  view.webContents.openDevTools()
 
   ipcMain.handle("video_event", (event, args) => {
     console.log('Received from frontend:', args)
@@ -73,13 +92,12 @@ const createWindow = (): void => {
       } else {
         view.setBounds({ x: 0, y: 10, width: 600, height: 400 })
       }
-      // view.webContents.openDevTools();
+      view.webContents.openDevTools();
 
     }
     return `Backend confirms it received: `
   })
 
-  console.log("DELETEME: register ipc, ", MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY)
   ipcMain.handle("start_playlist", (event, args) => {
     const mwBounds = mainWindow.getBounds()
     view.setBounds(mwBounds);
@@ -87,7 +105,7 @@ const createWindow = (): void => {
     playlist = args.playlist
     playing = 0
     view.webContents.loadURL(transformURL(playlist[playing]))
-    // view.webContents.openDevTools();
+    view.webContents.openDevTools();
     return `Shots fired`
   })
 

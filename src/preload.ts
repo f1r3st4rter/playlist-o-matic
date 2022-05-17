@@ -12,7 +12,6 @@ const exposedApi: ContextBridgeApi = {
         return "suja";
     },
     start_playlist: async (playlist: string[]) => {
-        console.log("DELTEME: START PLAYLIST API");
         const shoot = await ipcRenderer.invoke("start_playlist", {playlist});
         console.log(shoot);
         return shoot;
